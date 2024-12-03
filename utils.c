@@ -1,38 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 11:10:44 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/03 10:01:24 by dvauthey         ###   ########.fr       */
+/*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
+/*   Updated: 2024/12/03 10:31:49 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char **argv, char **env)
+char	*ft_strjoinfree1(char *s1, char const *s2)
 {
-	int	fd1;
-	int	fd2;
+	char	*result;
+	int		i;
+	int		j;
 
-	if (argc != 5 || !env)
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	result = malloc((i + j + 1) * sizeof(char));
+	if (result == NULL)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		write(2, "Error : not enough arguments\n", 30);
-		return (1);
+		result[i] = s1[i];
+		i++;
 	}
-	fd1 = open(argv[1], O_RDONLY);
-	if (fd1 == -1)
-		perror("Error opening/creating files");
-	fd2 = open(argv[4], O_WRONLY | O_CREAT);
-	if (fd2 == -1)
+	j = 0;
+	while (s2[j])
 	{
-		close(fd1);
-		perror("Error opening/creating file");
+		result[i + j] = s2[j];
+		j++;
 	}
-	ft_pipex(fd1, fd2, argv, env);
-	close(fd1);
-	close(fd2);
-	return (0);
+	result[i + j] = '\0';
+	free(s1);
+	return (result);
 }

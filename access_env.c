@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:01:13 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/02 16:40:38 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:01:43 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,15 @@
 static char	*getting_env(char **env)
 {
 	int		i;
-	char	*paths;
 
 	i = 0;
-	paths = NULL;
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PATH=", 5))
-			paths = ft_strdup(env[i]);
+			return (env[i] + 5);
 		i++;
 	}
-	return (paths + 5);
+	return (NULL);
 }
 
 static void	freesplit(char **tab)
@@ -41,25 +39,41 @@ static void	freesplit(char **tab)
 	free(tab);
 }
 
+static void	split_char(char *cmd, char **env, char ***cmdsplit, char ***paths)
+{
+	char	*env_cut;
+
+	env_cut = getting_env(env);
+	
+	*paths = ft_split(env_cut, ':');
+	if (!(*paths) || !(*paths)[0])
+		return (freesplit(*paths));
+	*cmdsplit = ft_split(cmd, ' ');
+	if (!(*cmdsplit) || !(*cmdsplit)[0])
+		return (freesplit(*paths), freesplit(*cmdsplit));
+}
+
 char	*accessing_path(char *cmd, char **env)
 {
 	int		i;
-	char	**result;
-	char	*pathc;
+	char	**paths;
+	char	**cmdsplit;
+	char	*path_right;
 
 	i = 0;
-	result = ft_split(getting_env(env), ':');
-	if (!result || !result[0])
-		return (freesplit(result), NULL);
-	pathc = NULL;
-	while (result[i])
+	path_right = NULL;
+	paths = NULL;
+	cmdsplit = NULL;
+	split_char(cmd, env, &cmdsplit, &paths);
+	while (paths[i])
 	{
-		pathc = ft_strjoin(result[i], "/");
-		pathc = ft_strjoin(pathc, cmd);
-		if (access(pathc, F_OK) == 0)
-			return (freesplit(result), pathc);
+		path_right = ft_strjoin(paths[i], "/");
+		path_right = ft_strjoinfree1(path_right, cmdsplit[0]);
+		if (access(path_right, F_OK) == 0)
+			return (freesplit(paths), freesplit(cmdsplit), path_right);
 		i++;
+		if (paths[i])
+			free(path_right);
 	}
-	freesplit(result);
-	return (pathc);
+	return (freesplit(paths), freesplit(cmdsplit), free(path_right), NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:35:16 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/02 16:39:01 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:23:34 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdio.h>
 # include "libft/src/libft.h"
 
+char	*ft_strjoinfree1(char *s1, char const *s2);
 char	*accessing_path(char *cmd, char **env);
+void	ft_pipex(int fd1, int fd2, char **argv, char **env);
 
 #endif
