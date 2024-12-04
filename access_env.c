@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:01:13 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/03 11:01:43 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/04 15:32:33 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	*getting_env(char **env)
 	return (NULL);
 }
 
-static void	freesplit(char **tab)
+void	freesplit(char **tab)
 {
 	int	i;
 
