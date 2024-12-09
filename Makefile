@@ -1,6 +1,6 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
-SRC = main.c access_env.c pipex.c utils.c ft_splitpipex.c
+SRC = main.c access_env.c pipex.c utils.c ft_splitpipex.c ft_splitpipex2.c
 #OBJDIR = obj
 OBJ = ${SRC:.c=.o}
 NAME = pipex

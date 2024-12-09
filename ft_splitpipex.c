@@ -12,46 +12,18 @@
 
 #include "pipex.h"
 
-static int	ft_nb_row(char const *s, char c)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (s[i])
-	{
-		if (s[i] != c)
-		{
-			count++;
-			if (s[i] == '\'')
-			{
-				i++;
-				while (s[i] != '\'')
-					i++;
-				i++;
-			}
-			else
-				while (s[i] && s[i] != c)
-					i++;
-		}
-		while (s[i] == c && s[i])
-			i++;
-	}
-	return (count);
-}
-
 static int	ft_nb(const char *s, char c, int i, int *start)
 {
 	while (s[i] == c && s[i])
 		i++;
+	if (s[i] == '\\')
+		i++;
 	*start = i;
-	if (s[i] == '\'')
+	if (s[i] == '\'' || s[i] == '\"')
 	{
-		i++;
-		while (s[i] != '\'')
+		i = double_single_quote(s, i);
+		if (s[i])
 			i++;
-		i++;
 	}
 	else
 		while (s[i] != c && s[i])
@@ -77,7 +49,7 @@ static char	*ft_strinrow(char const *s, int start, int end)
 	return (row);
 }
 
-void	*ft_freesplit(char **res, int j)
+static void	*ft_freesplit(char **res, int j)
 {
 	int	i;
 

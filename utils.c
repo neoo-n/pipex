@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 11:57:04 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:18:50 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,21 @@ char	**ft_strtrimpipex(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		ft_strtrim(tab[i], "'");
+		if ((tab[i][0] == '\'' || tab[i][0] == '\"') && ft_strlen(tab[i]) > 1)
+			tab[i] = ft_strtrim(tab[i], "'\"");
 		i++;
 	}
 	return (tab);
 }
 
-void	freepathcmd(t_fdpath fdpath, char **cmd, char *message)
+void	error_managefree(t_fdpath fdpath, char **cmd, char *message)
 {
-	free(fdpath.path1);
-	free(fdpath.path2);
+	close(fdpath.fd1);
+	close(fdpath.fd2);
+	if (fdpath.path1)
+		free(fdpath.path1);
+	if (fdpath.path2)
+		free(fdpath.path2);
 	if (cmd)
 		freesplit(cmd);
 	if (message)

@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:35:16 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 11:56:45 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/09 16:17:22 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct s_fdpath
 
 char	*ft_strjoinfree1(char *s1, char const *s2);
 char	**ft_strtrimpipex(char **tab);
-void	freepathcmd(t_fdpath fdpath, char **cmd, char *message);
-void	*ft_freesplit(char **res, int j);
+void	error_managefree(t_fdpath fdpath, char **cmd, char *message);
+int		double_single_quote(const char *s, int i);
+int		ft_nb_row(char const *s, char c);
 char	**ft_splitpipex(char const *s, char c);
 void	freesplit(char **tab);
 char	*accessing_path(char *cmd, char **env);

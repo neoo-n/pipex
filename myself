@@ -1,0 +1,3 @@
+cmd[0] : echo
+cmd[1] : 'test test'
+test test
