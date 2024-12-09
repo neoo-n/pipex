@@ -1,14 +1,14 @@
-/* ************************************************************************** */
+/******************************************************************************/
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   access_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:01:13 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/04 15:32:33 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/05 14:21:19 by marvin           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/******************************************************************************/
 
 #include "pipex.h"
 
@@ -47,10 +47,10 @@ static void	split_char(char *cmd, char **env, char ***cmdsplit, char ***paths)
 	
 	*paths = ft_split(env_cut, ':');
 	if (!(*paths) || !(*paths)[0])
-		return (freesplit(*paths));
+		return ; 
 	*cmdsplit = ft_split(cmd, ' ');
 	if (!(*cmdsplit) || !(*cmdsplit)[0])
-		return (freesplit(*paths), freesplit(*cmdsplit));
+		return (freesplit(*paths));
 }
 
 char	*accessing_path(char *cmd, char **env)

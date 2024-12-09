@@ -1,0 +1,121 @@
+/******************************************************************************/
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_splitpipex.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/05 14:10:11 by marvin            #+#    #+#             */
+/*   Updated: 2024/12/05 15:25:33 by marvin           ###   ########.fr       */
+/*                                                                            */
+/******************************************************************************/
+
+#include "pipex.h"
+
+static int	ft_nb_row(char const *s, char c)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			count++;
+			if (s[i] == '\'')
+			{
+				i++;
+				while (s[i] != '\'')
+					i++;
+				i++;
+			}
+			else
+				while (s[i] && s[i] != c)
+					i++;
+		}
+		while (s[i] == c && s[i])
+			i++;
+	}
+	return (count);
+}
+
+static int	ft_nb(const char *s, char c, int i, int *start)
+{
+	while (s[i] == c && s[i])
+		i++;
+	*start = i;
+	if (s[i] == '\'')
+	{
+		i++;
+		while (s[i] != '\'')
+			i++;
+		i++;
+	}
+	else
+		while (s[i] != c && s[i])
+			i++;
+	return (i);
+}	
+
+static char	*ft_strinrow(char const *s, int start, int end)
+{
+	char	*row;
+	int		i;
+
+	i = 0;
+	row = malloc((end - start + 1) * sizeof(char));
+	if (row == NULL)
+		return (NULL);
+	while (i < (end - start))
+	{
+		row[i] = s[start + i];
+		i++;
+	}
+	row[i] = '\0';
+	return (row);
+}
+
+static void	*ft_freesplit(char **res, int j)
+{
+	int	i;
+
+	i = 0;
+	while (i <= j)
+	{
+		free(res[i]);
+		i++;
+	}
+	free(res);
+	return (NULL);
+}
+
+char	**ft_splitpipex(char const *s, char c)
+{
+	int		i;
+	int		j;
+	int		start;
+	char	**result;
+
+	i = 0;
+	j = 0;
+	start = 0;
+	result = malloc((ft_nb_row(s, c) + 1) * sizeof(char *));
+	if (result == NULL)
+		return (NULL);
+	while (s[i])
+	{
+		i = ft_nb(s, c, i, &start);
+		if (start != i)
+		{
+			result[j] = ft_strinrow(s, start, i);
+			if (!result[j])
+				return (ft_freesplit(result, j));
+			printf("result[%i] : %s\n", j, result[j]);
+			j++;
+		}
+	}
+	result[j] = NULL;
+	return (result);
+}
