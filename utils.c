@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/05 15:23:29 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/09 11:57:04 by dvauthey         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -38,4 +38,28 @@ char	*ft_strjoinfree1(char *s1, char const *s2)
 	result[i + j] = '\0';
 	free(s1);
 	return (result);
+}
+
+char	**ft_strtrimpipex(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		ft_strtrim(tab[i], "'");
+		i++;
+	}
+	return (tab);
+}
+
+void	freepathcmd(t_fdpath fdpath, char **cmd, char *message)
+{
+	free(fdpath.path1);
+	free(fdpath.path2);
+	if (cmd)
+		freesplit(cmd);
+	if (message)
+		perror(message);
+	exit(EXIT_FAILURE);
 }

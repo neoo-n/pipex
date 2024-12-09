@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   access_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:01:13 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/05 14:21:19 by marvin           ###   ########.fr       */
+/*   Updated: 2024/12/09 11:54:56 by dvauthey         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -44,10 +44,9 @@ static void	split_char(char *cmd, char **env, char ***cmdsplit, char ***paths)
 	char	*env_cut;
 
 	env_cut = getting_env(env);
-	
 	*paths = ft_split(env_cut, ':');
 	if (!(*paths) || !(*paths)[0])
-		return ; 
+		return ;
 	*cmdsplit = ft_split(cmd, ' ');
 	if (!(*cmdsplit) || !(*cmdsplit)[0])
 		return (freesplit(*paths));
@@ -72,8 +71,7 @@ char	*accessing_path(char *cmd, char **env)
 		if (access(path_right, F_OK) == 0)
 			return (freesplit(paths), freesplit(cmdsplit), path_right);
 		i++;
-		if (paths[i])
-			free(path_right);
+		free(path_right);
 	}
-	return (freesplit(paths), freesplit(cmdsplit), free(path_right), NULL);
+	return (freesplit(paths), freesplit(cmdsplit), NULL);
 }

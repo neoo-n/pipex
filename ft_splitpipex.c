@@ -1,14 +1,14 @@
-/******************************************************************************/
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   ft_splitpipex.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/05 14:10:11 by marvin            #+#    #+#             */
-/*   Updated: 2024/12/05 15:25:33 by marvin           ###   ########.fr       */
+/*   Created: 2024/12/09 11:55:15 by dvauthey          #+#    #+#             */
+/*   Updated: 2024/12/09 11:55:15 by dvauthey         ###   ########.fr       */
 /*                                                                            */
-/******************************************************************************/
+/* ************************************************************************** */
 
 #include "pipex.h"
 
@@ -77,7 +77,7 @@ static char	*ft_strinrow(char const *s, int start, int end)
 	return (row);
 }
 
-static void	*ft_freesplit(char **res, int j)
+void	*ft_freesplit(char **res, int j)
 {
 	int	i;
 
@@ -112,7 +112,6 @@ char	**ft_splitpipex(char const *s, char c)
 			result[j] = ft_strinrow(s, start, i);
 			if (!result[j])
 				return (ft_freesplit(result, j));
-			printf("result[%i] : %s\n", j, result[j]);
 			j++;
 		}
 	}
