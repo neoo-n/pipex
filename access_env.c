@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 14:01:13 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 11:54:56 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:57:12dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,13 @@ char	*accessing_path(char *cmd, char **env)
 	paths = NULL;
 	cmdsplit = NULL;
 	split_char(cmd, env, &cmdsplit, &paths);
+	if (!cmdsplit || !paths)
+		return (NULL);
 	while (paths[i])
 	{
-		path_right = ft_strjoin(paths[i], "/");
-		path_right = ft_strjoinfree1(path_right, cmdsplit[0]);
+		path_right = ft_strjoinpipex(paths[i], cmdsplit[0]);
+		if (!path_right)
+			return (freesplit(paths), freesplit(cmdsplit), NULL);
 		if (access(path_right, F_OK) == 0)
 			return (freesplit(paths), freesplit(cmdsplit), path_right);
 		i++;

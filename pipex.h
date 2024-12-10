@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:35:16 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 16:17:22 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:00:41 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_fdpath
 	char	*path2;
 }			t_fdpath;
 
-char	*ft_strjoinfree1(char *s1, char const *s2);
+char	*ft_strjoinpipex(char *s1, char const *s2);
 char	**ft_strtrimpipex(char **tab);
 void	error_managefree(t_fdpath fdpath, char **cmd, char *message);
 int		double_single_quote(const char *s, int i);

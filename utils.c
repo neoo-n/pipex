@@ -6,13 +6,13 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 16:18:50 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:05:10 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-char	*ft_strjoinfree1(char *s1, char const *s2)
+char	*ft_strjoinpipex(char *s1, char const *s2)
 {
 	char	*result;
 	int		i;
@@ -20,7 +20,7 @@ char	*ft_strjoinfree1(char *s1, char const *s2)
 
 	i = ft_strlen(s1);
 	j = ft_strlen(s2);
-	result = malloc((i + j + 1) * sizeof(char));
+	result = malloc((i + j + 1 + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = 0;
@@ -30,13 +30,14 @@ char	*ft_strjoinfree1(char *s1, char const *s2)
 		i++;
 	}
 	j = 0;
+	result[i] = '/';
+	i++;
 	while (s2[j])
 	{
 		result[i + j] = s2[j];
 		j++;
 	}
 	result[i + j] = '\0';
-	free(s1);
 	return (result);
 }
 
