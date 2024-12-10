@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/10 12:05:10 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/10 16:55:13 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ char	*ft_strjoinpipex(char *s1, char const *s2)
 	int		i;
 	int		j;
 
-	i = ft_strlen(s1);
-	j = ft_strlen(s2);
-	result = malloc((i + j + 1 + 1) * sizeof(char));
+	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1 + 1) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = 0;
@@ -30,7 +28,9 @@ char	*ft_strjoinpipex(char *s1, char const *s2)
 		i++;
 	}
 	j = 0;
-	result[i] = '/';
+	if (s1)
+		if (result[i - 1] != '/')
+			result[i] = '/';
 	i++;
 	while (s2[j])
 	{
@@ -68,4 +68,21 @@ void	error_managefree(t_fdpath fdpath, char **cmd, char *message)
 	if (message)
 		perror(message);
 	exit(EXIT_FAILURE);
+}
+
+char	*ft_strcpypipex(char *dest, char *src)
+{
+	int	i;
+
+	i = 0;
+	dest = (char *)ft_calloc(ft_strlen(src) + 1, sizeof(char));
+	if (!src)
+		return (NULL);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	dest[i] = '\0';
+	return (dest);
 }

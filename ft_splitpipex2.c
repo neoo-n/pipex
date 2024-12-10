@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:58:02 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 16:24:45 by dvauthey         ###   ########.fr       */
+/*   Updated: 2024/12/10 14:56:38 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,22 @@ int	double_single_quote(const char *s, int i)
 	if (s[i] == '\"')
 	{
 		i++;
-		while (s[i] && s[i] != '\"')
+		while (s[i])
+		{
+			if (s[i - 1] == '\\' && s[i] == '\'')
+				break;
 			i++;
+		}
 	}
 	else if (s[i] == '\'')
 	{
 		i++;
-		while (s[i + 1] && s[i + 1] != '\'')
+		while (s[i])
+		{
+			if (s[i - 1] == '\\' && s[i] == '\'')
+				break ;
 			i++;
+		}
 	}
 	if (s[i])
 		i++;

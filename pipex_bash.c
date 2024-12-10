@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bash.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/02 13:46:05 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/10 16:57:40 by dvauthey         ###   ########.fr       */
+/*   Created: 2024/12/10 16:57:51 by dvauthey          #+#    #+#             */
+/*   Updated: 2024/12/10 16:59:38 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	child_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
+void	child_process_bash(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 {
 	char	**cmd;
 
@@ -34,7 +34,7 @@ static void	child_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 		freesplit(cmd);
 }
 
-static void	parent_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
+void	parent_process_bash(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 {
 	char	**cmd;
 
@@ -57,61 +57,4 @@ static void	parent_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 		error_managefree(fdpath, cmd, "Error execve (parent)");
 	else
 		freesplit(cmd);
-}
-
-static void	forking(t_fdpath fdpath, char **argv, char **env)
-{
-	int		fdpipe[2];
-	pid_t	pid;
-
-	if (pipe(fdpipe) == -1)
-		error_managefree(fdpath, NULL, "Error with the pipe");
-	pid = fork();
-	if (pid == -1)
-		error_managefree(fdpath, NULL, "Error fork");
-	else if (pid == 0)
-		child_process(fdpath, argv[2], env, fdpipe);
-	else
-	{
-		if (wait(NULL) == -1)
-			error_managefree(fdpath, NULL, "Error wait (forking)");
-		parent_process(fdpath, argv[3], env, fdpipe);
-	}
-}
-
-static char	*cpypath(char *path, char *arg, char **env)
-{
-	if (!ft_strncmp(arg, "./", 2))
-		path = ft_strcpypipex(path, arg);
-	else
-		path = accessing_path(arg, env);
-	return (path);
-}
-
-void	ft_pipex(t_fdpath fdpath, char **argv, char **env)
-{
-	fdpath.path1 = cpypath(fdpath.path1, argv[2], env);
-	if (!fdpath.path1)
-	{
-		if(close(fdpath.fd1) == -1)
-			error_managefree(fdpath, NULL, "Error close fd1 (path1 ft_pipex)");
-		if (close(fdpath.fd2) == -1)
-			error_managefree(fdpath, NULL, "Error close fd2 (path1 ft_pipex)");
-		write(2, "No such command (1)", 19);
-		exit(EXIT_FAILURE);
-	}
-	fdpath.path2 = cpypath(fdpath.path2, argv[3], env);
-	if (!fdpath.path2)
-	{
-		if(close(fdpath.fd1) == -1)
-			error_managefree(fdpath, NULL, "Error close fd1 (path2 ft_pipex)");
-		if (close(fdpath.fd2) == -1)
-			error_managefree(fdpath, NULL, "Error close fd2 (path2 ft_pipex)");
-		write(2, "No such command (2)", 19);
-		free(fdpath.path1);
-		exit(EXIT_FAILURE);
-	}
-	forking(fdpath, argv, env);
-	free(fdpath.path1);
-	free(fdpath.path2);
 }

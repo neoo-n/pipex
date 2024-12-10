@@ -44,6 +44,8 @@ static void	split_char(char *cmd, char **env, char ***cmdsplit, char ***paths)
 	char	*env_cut;
 
 	env_cut = getting_env(env);
+	if (!env_cut)
+		return ;
 	*paths = ft_split(env_cut, ':');
 	if (!(*paths) || !(*paths)[0])
 		return ;
