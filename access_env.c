@@ -66,7 +66,7 @@ char	*accessing_path(char *cmd, char **env)
 	paths = NULL;
 	cmdsplit = NULL;
 	split_char(cmd, env, &cmdsplit, &paths);
-	if (!cmdsplit || !paths)
+	if (!cmdsplit || !*cmdsplit || !paths)
 		return (NULL);
 	while (paths[i])
 	{

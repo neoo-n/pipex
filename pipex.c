@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:46:05 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/10 16:57:40 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/07 11:57:36 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static void	parent_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 		error_managefree(fdpath, NULL, "Error dup2 stdin (parent)");
 	if (dup2(fdpath.fd2, STDOUT_FILENO) == -1)
 		error_managefree(fdpath, NULL, "Error dup2 stdout (parent)");
-	if (!ft_strncmp(fdpath.path2, "./", 2))
-		
 	cmd = ft_splitpipex(arg, ' ');
 	if (!cmd || !cmd[0])
 		error_managefree(fdpath, NULL, "Error splitpipex (parent)");
