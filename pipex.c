@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:46:05 by dvauthey          #+#    #+#             */
-/*   Updated: 2025/01/08 16:43:55 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:39:32 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	ft_pipex(t_fdpath fdpath, char **argv, char **env)
 	fdpath.path1 = cpypath(fdpath.path1, argv[2], env);
 	if (!fdpath.path1)
 	{
-		if(close(fdpath.fd1) == -1)
+		if (close(fdpath.fd1) == -1)
 			error_managefree(fdpath, NULL, "Error close fd1 (path1 ft_pipex)");
 		if (close(fdpath.fd2) == -1)
 			error_managefree(fdpath, NULL, "Error close fd2 (path1 ft_pipex)");
@@ -105,7 +105,7 @@ void	ft_pipex(t_fdpath fdpath, char **argv, char **env)
 	fdpath.path2 = cpypath(fdpath.path2, argv[3], env);
 	if (!fdpath.path2)
 	{
-		if(close(fdpath.fd1) == -1)
+		if (close(fdpath.fd1) == -1)
 			error_managefree(fdpath, NULL, "Error close fd1 (path2 ft_pipex)");
 		if (close(fdpath.fd2) == -1)
 			error_managefree(fdpath, NULL, "Error close fd2 (path2 ft_pipex)");

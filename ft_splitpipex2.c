@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/09 15:58:02 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/10 14:56:38 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:39:10 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	double_single_quote(const char *s, int i)
 		while (s[i])
 		{
 			if (s[i - 1] == '\\' && s[i] == '\'')
-				break;
+				break ;
 			i++;
 		}
 	}
