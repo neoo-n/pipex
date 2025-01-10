@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 10:21:41 by dvauthey          #+#    #+#             */
-/*   Updated: 2025/01/07 11:48:46 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:20:21 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,10 @@ char	**ft_strtrimpipex(char **tab)
 
 void	error_managefree(t_fdpath fdpath, char **cmd, char *message)
 {
-	close(fdpath.fd1);
-	close(fdpath.fd2);
+	if (fdpath.fd1 > -1)
+		close(fdpath.fd1);
+	if (fdpath.fd2 > -1)
+		close(fdpath.fd2);
 	if (fdpath.path1)
 		free(fdpath.path1);
 	if (fdpath.path2)

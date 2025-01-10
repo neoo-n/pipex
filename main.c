@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 11:10:44 by dvauthey          #+#    #+#             */
-/*   Updated: 2024/12/09 11:27:05 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:15:51 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ int	main(int argc, char **argv, char **env)
 	fdpath.path1 = NULL;
 	fdpath.path2 = NULL;
 	ft_pipex(fdpath, argv, env);
-	close(fdpath.fd1);
-	close(fdpath.fd2);
+	if (fdpath.fd1 > -1)
+		close(fdpath.fd1);
+	if (fdpath.fd2 > -1)
+		close(fdpath.fd2);
 	return (0);
 }

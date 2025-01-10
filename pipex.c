@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 13:46:05 by dvauthey          #+#    #+#             */
-/*   Updated: 2025/01/09 15:39:32 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:20:33 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static void	child_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 		error_managefree(fdpath, NULL, "Error trimpipex (child)");
 	if (close(fdpath.fd1) == -1)
 		error_managefree(fdpath, NULL, "Error close fd1 (child)");
+	if (close(fdpipe[1]) == -1)
+		error_managefree(fdpath, NULL, "Error close pipe 1 (child)");
 	if (execve(fdpath.path1, cmd, env) == -1)
 		error_managefree(fdpath, cmd, "Error execve (child)");
 	else
@@ -55,6 +57,8 @@ static void	parent_process(t_fdpath fdpath, char *arg, char **env, int *fdpipe)
 		error_managefree(fdpath, NULL, "Error trimpipex (parent)");
 	if (close(fdpath.fd2) == -1)
 		error_managefree(fdpath, NULL, "Error closing fd 2");
+	if (close(fdpipe[0]) == -1)
+		error_managefree(fdpath, NULL, "Error closing pipe 0");
 	if (execve(fdpath.path2, cmd, env) == -1)
 		error_managefree(fdpath, cmd, "Error execve (parent)");
 	else

@@ -6,7 +6,7 @@
 /*   By: dvauthey <dvauthey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/09 15:38:49 by dvauthey          #+#    #+#             */
-/*   Updated: 2025/01/09 15:38:53 by dvauthey         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:23:47 by dvauthey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char	*getting_env(char **env)
 	int		i;
 
 	i = 0;
+	if (!env)
+		return (NULL);
 	while (env[i])
 	{
 		if (!ft_strncmp(env[i], "PATH=", 5))
@@ -66,8 +68,10 @@ char	*accessing_path(char *cmd, char **env)
 	paths = NULL;
 	cmdsplit = NULL;
 	split_char(cmd, env, &cmdsplit, &paths);
-	if (!cmdsplit || !*cmdsplit || !paths)
+	if (!cmdsplit || !paths)
 		return (NULL);
+	if (!*cmdsplit)
+		return (free(cmdsplit), NULL);
 	while (paths[i])
 	{
 		path_right = ft_strjoinpipex(paths[i], cmdsplit[0]);
